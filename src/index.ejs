@@ -54,12 +54,6 @@
   </script>
   <% } %>
 
-  <!--
-    If you need to support Angular applications, uncomment the script tag below to ensure only one instance of ZoneJS is loaded
-    Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
-  -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/zone.js@0.10.3/dist/zone.min.js"></script> -->
-
   <% if (isLocal) { %>
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.16.0/dist/import-map-overrides.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/system.js"></script>
@@ -81,12 +75,16 @@
   <div id="some-div-to-mount-in"></div>
 <script>
 
-  window.addEventListener('single-spa:before-app-change', (evt) => {
-    console.log('single-spa is about to mount/unmount applications!');
+  window.addEventListener('single-spa:app-change', (evt) => {
+    console.log('A routing event occurred where at least one application was mounted/unmounted');
     console.log(evt.detail.originalEvent) // PopStateEvent
     console.log(evt.detail.newAppStatuses) // { app1: MOUNTED }
     console.log(evt.detail.appsByNewStatus) // { MOUNTED: ['app1'], NOT_MOUNTED: [] }
     console.log(evt.detail.totalAppChanges) // 1
+  });
+
+  window.addEventListener('single-spa:first-mount', (evt) => {
+    console.log('single-spa is about to mount the very first application for the first time');
   });
 
   function mount() {
