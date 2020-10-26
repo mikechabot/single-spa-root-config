@@ -78,5 +78,18 @@
     System.import('@mikechabot/root-config');
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+  <div id="some-div-to-mount-in"></div>
+<script>
+  function mount() {
+    const event = new CustomEvent('mount-component', {detail: {mountId: 'some-div-to-mount-in'}});
+    document.dispatchEvent(event);
+  }
+  function unmount() {
+    const event = new Event('unmount-component');
+    document.dispatchEvent(event);
+  }
+</script>
+<button onclick="mount()">Mount component</button>
+<button onclick="unmount()">Unmount component</button>
 </body>
 </html>
