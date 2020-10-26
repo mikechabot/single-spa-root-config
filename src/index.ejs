@@ -80,6 +80,15 @@
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
   <div id="some-div-to-mount-in"></div>
 <script>
+
+  window.addEventListener('single-spa:before-app-change', (evt) => {
+    console.log('single-spa is about to mount/unmount applications!');
+    console.log(evt.detail.originalEvent) // PopStateEvent
+    console.log(evt.detail.newAppStatuses) // { app1: MOUNTED }
+    console.log(evt.detail.appsByNewStatus) // { MOUNTED: ['app1'], NOT_MOUNTED: [] }
+    console.log(evt.detail.totalAppChanges) // 1
+  });
+
   function mount() {
     const event = new CustomEvent('mount-component', {detail: {mountId: 'some-div-to-mount-in'}});
     document.dispatchEvent(event);
