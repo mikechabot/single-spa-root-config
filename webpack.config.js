@@ -36,8 +36,13 @@ module.exports = (webpackConfigEnv, argv) => {
         new CopyPlugin({
           patterns: [
             {
-              from: isLocal ? "importmap.dev.json" : "importmap.json",
-              to: "importmap.json",
+              from: isLocal
+                ? "importmap-modules.dev.json"
+                : "importmap-modules.json",
+              to: "importmap-modules.json",
+            },
+            {
+              from: "importmap-deps.json",
             },
           ],
         }),
