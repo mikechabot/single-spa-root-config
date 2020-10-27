@@ -1,6 +1,7 @@
 const webpackMerge = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-ts");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (webpackConfigEnv, argv) => {
   const orgName = "mikechabot";
@@ -19,6 +20,8 @@ module.exports = (webpackConfigEnv, argv) => {
     ),
   });
 
+  const isLocal = webpackConfigEnv && webpackConfigEnv.isLocal === "true";
+
   return merge(
     {
       plugins: [
@@ -26,9 +29,17 @@ module.exports = (webpackConfigEnv, argv) => {
           inject: false,
           template: "src/index.ejs",
           templateParameters: {
-            isLocal: webpackConfigEnv && webpackConfigEnv.isLocal === "true",
+            isLocal,
             orgName,
           },
+        }),
+        new CopyPlugin({
+          patterns: [
+            {
+              from: isLocal ? "importmap.dev.json" : "importmap.json",
+              to: "importmap.json",
+            },
+          ],
         }),
       ],
     },

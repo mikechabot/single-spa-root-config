@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@mikechabot/root-config": "//localhost:9000/mikechabot-root-config.js",
+    "@mikechabot/player-card": "//localhost:8080/mikechabot-player-card.js"
+  }
+}
