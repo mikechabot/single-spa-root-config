@@ -43,12 +43,11 @@
   <script>
     System.import('@mikechabot/root-config');
   </script>
-  <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
-<script>
-  window.addEventListener('DkLiveExperience:mounted', function(e) {
-    const playerCard = e.detail.playerCard;
-    playerCard.mount('dk-live-experience--player-card');
-  });
-</script>
+  <script>
+    window.addEventListener('DkLiveExperience:mounted', function(e) {
+      const playerCard = e.detail.playerCard;
+      playerCard.mount('dk-live-experience--player-card');
+    });
+  </script>
 </body>
 </html>
