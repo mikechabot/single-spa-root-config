@@ -11,6 +11,8 @@
     browsers. More information at https://github.com/single-spa/create-single-spa/issues/112
   -->
   <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.5/runtime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+
   <!--
     This CSP allows any SSL-enabled host, but you should limit these directives further to increase your app's security.
     Learn more about CSP policies at https://content-security-policy.com/#directive
@@ -72,31 +74,11 @@
     System.import('@mikechabot/root-config');
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
-  <div id="some-div-to-mount-in"></div>
 <script>
-
-  window.addEventListener('single-spa:app-change', (evt) => {
-    console.log('A routing event occurred where at least one application was mounted/unmounted');
-    console.log(evt.detail.originalEvent) // PopStateEvent
-    console.log(evt.detail.newAppStatuses) // { app1: MOUNTED }
-    console.log(evt.detail.appsByNewStatus) // { MOUNTED: ['app1'], NOT_MOUNTED: [] }
-    console.log(evt.detail.totalAppChanges) // 1
+  window.addEventListener('DkLiveExperience:mounted', function(e) {
+    const playerCard = e.detail.playerCard;
+    playerCard.mount('dk-live-experience--player-card');
   });
-
-  window.addEventListener('single-spa:first-mount', (evt) => {
-    console.log('single-spa is about to mount the very first application for the first time');
-  });
-
-  function mount() {
-    const event = new CustomEvent('mount-component', {detail: {mountId: 'some-div-to-mount-in'}});
-    document.dispatchEvent(event);
-  }
-  function unmount() {
-    const event = new Event('unmount-component');
-    document.dispatchEvent(event);
-  }
 </script>
-<button onclick="mount()">Mount component</button>
-<button onclick="unmount()">Unmount component</button>
 </body>
 </html>
