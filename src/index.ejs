@@ -14,40 +14,39 @@
   <meta name="importmap-type" content="systemjs-importmap" />
 
   <% if (isLocal) { %>
-    <script type="systemjs-importmap" src="//localhost:9000/importmap-deps.json"></script>
+    <script type="systemjs-importmap" src="//localhost:9000/common.json"></script>
   <% } else { %>
-    <script type="systemjs-importmap" src="/single-spa-test/dist/importmap-deps.json"></script>
+    <script type="systemjs-importmap" src="/single-spa-test/dist/common.json"></script>
   <% } %>
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.5.5/lib/system/single-spa.min.js" as="script">
 
   <% if (isLocal) { %>
-    <script type="systemjs-importmap" src="//localhost:9000/importmap-modules.json"></script>
+    <script type="systemjs-importmap" src="//localhost:9000/modules.json"></script>
   <% } else { %>
-    <script type="systemjs-importmap" src="/single-spa-test/dist/importmap-modules.json"></script>
+    <script type="systemjs-importmap" src="/single-spa-test/dist/modules.json"></script>
   <% } %>
 
   <% if (isLocal) { %>
-  <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.16.0/dist/import-map-overrides.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/system.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/amd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/named-exports.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.16.0/dist/import-map-overrides.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/system.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/amd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/named-exports.js"></script>
   <% } else { %>
-  <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.16.0/dist/import-map-overrides.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/system.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/amd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/named-exports.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.16.0/dist/import-map-overrides.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/amd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.4.0/dist/extras/named-exports.min.js"></script>
   <% } %>
 </head>
 <body>
-  <script>
-    System.import('@mikechabot/root-config');
-  </script>
-  <script>
-    window.addEventListener('DkLiveExperience:mounted', function(e) {
-      const playerCard = e.detail.playerCard;
-      playerCard.mount('dk-live-experience--player-card');
-    });
-  </script>
+<script>
+  System.import('@mikechabot/root-config');
+</script>
+<script>
+  window.addEventListener('MyOrg:mounted', function() {
+    window.MyOrg.testApplication.mount('my-org--test-application');
+  });
+</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "imports": {
     "@mikechabot/root-config": "/single-spa-test/dist/mikechabot-root-config.js",
-    "@mikechabot/player-card": "//localhost:8080/mikechabot-player-card.js"
+    "@mikechabot/test-application": "//localhost:8080/mikechabot-test-application.js"
   }
 }

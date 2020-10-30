@@ -1,8 +1,10 @@
+import { MyOrg } from "./types";
+
 export {};
 
 declare global {
   interface Window {
-    DkLiveExperience: any;
+    MyOrg: MyOrg;
     CustomEvent: any;
   }
 }

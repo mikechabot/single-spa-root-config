@@ -1,4 +1,7 @@
 {
+  "env": {
+    "node": true
+  },
   "extends": ["important-stuff", "plugin:prettier/recommended"],
   "parser": "@typescript-eslint/parser",
   "rules": {

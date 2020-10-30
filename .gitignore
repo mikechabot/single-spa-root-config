@@ -60,8 +60,10 @@ typings/
 # next.js build output
 .next
 dist
+dist-core
 
 # Editor directories and files
+*.iml
 .idea
 .vscode
 *.suo

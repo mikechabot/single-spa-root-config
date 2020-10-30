@@ -1,7 +1,12 @@
+const path = require("path");
+const DefinePlugin = require("webpack").DefinePlugin;
 const webpackMerge = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-ts");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+
+const importMapPath = path.join(__dirname, "/import-maps");
+const srcPath = path.join(__dirname, "/src");
 
 module.exports = (webpackConfigEnv, argv) => {
   const orgName = "mikechabot";
@@ -22,35 +27,52 @@ module.exports = (webpackConfigEnv, argv) => {
 
   const isLocal = webpackConfigEnv && webpackConfigEnv.isLocal === "true";
 
-  return merge(
-    {
-      plugins: [
-        new HtmlWebpackPlugin({
-          inject: false,
-          template: "src/index.ejs",
-          templateParameters: {
+  const {
+    output: { path: distPath },
+  } = defaultConfig;
+
+  const rootConfigDistPath = path.join(distPath, "root-config");
+  const coreDistPath = path.join(distPath, "core");
+
+  return [
+    merge(
+      {
+        plugins: [
+          new HtmlWebpackPlugin({
+            inject: false,
+            template: path.join(srcPath, "index.ejs"),
+            templateParameters: {
+              isLocal,
+              orgName,
+            },
+          }),
+          new DefinePlugin({
             isLocal,
-            orgName,
-          },
-        }),
-        new CopyPlugin({
-          patterns: [
-            {
-              from: isLocal
-                ? "importmap-modules.dev.json"
-                : "importmap-modules.json",
-              to: "importmap-modules.json",
-            },
-            {
-              from: "importmap-deps.json",
-            },
-          ],
-        }),
-      ],
-    },
-    defaultConfig,
-    {
-      // modify the webpack config however you'd like to by adding to this object
-    }
-  );
+          }),
+          new CopyPlugin({
+            patterns: [
+              {
+                from: isLocal
+                  ? path.join(importMapPath, "modules.dev.json")
+                  : path.join(importMapPath, "modules.json"),
+                to: path.join(rootConfigDistPath, "modules.json"),
+              },
+              {
+                from: path.join(importMapPath, "common.json"),
+              },
+            ],
+          }),
+        ],
+      },
+      defaultConfig,
+      {
+        output: {
+          filename: "mikechabot-root-config.js",
+          libraryTarget: "system",
+          path: rootConfigDistPath,
+          jsonpFunction: "webpackJsonp_root-config",
+        },
+      }
+    ),
+  ];
 };

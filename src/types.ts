@@ -1,11 +1,11 @@
 import { Parcel } from "single-spa";
 
-export enum DkLiveEvent {
-  Mounted = "DkLiveExperience:mounted",
+export enum MyOrgEvent {
+  Mounted = "MyOrg:mounted",
 }
 
-export enum DkLiveModule {
-  PlayerCard = "@mikechabot/player-card",
+export enum MyOrgModule {
+  TestApplication = "@mikechabot/test-application",
 }
 
 export interface ComponentProps {
@@ -20,6 +20,6 @@ export interface MicroUi {
   ) => Promise<Parcel | undefined>;
 }
 
-export interface DkLiveExperience {
-  playerCard: MicroUi;
+export interface MyOrg {
+  testApplication: MicroUi;
 }

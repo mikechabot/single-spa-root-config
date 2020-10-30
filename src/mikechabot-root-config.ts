@@ -1,25 +1,20 @@
 import { mountParcel } from "./util/parcel-mounter";
-import {
-  DkLiveModule,
-  DkLiveEvent,
-  DkLiveExperience,
-  ComponentProps,
-} from "./types";
+
+import { MyOrgModule, MyOrgEvent, MyOrg, ComponentProps } from "./types";
 
 import "./util/custom-event";
 
-const detail: DkLiveExperience = {} as DkLiveExperience;
+window.MyOrg = window.MyOrg = {} as MyOrg;
 
-detail.playerCard = {
-  name: DkLiveModule.PlayerCard,
+window.MyOrg.testApplication = {
+  name: MyOrgModule.TestApplication,
   mount: (mountId, componentProps: ComponentProps) =>
-    mountParcel(DkLiveModule.PlayerCard, mountId, componentProps),
+    mountParcel(MyOrgModule.TestApplication, mountId, componentProps),
 };
 
 /**
- * Emit a custom event so consumers can mount DKLiveExperience modules
+ * Emit a custom event so consumers can mount MyOrg modules
  * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
  */
-const eventInitDict = { detail };
-const event = new CustomEvent(DkLiveEvent.Mounted, eventInitDict);
+const event = new CustomEvent(MyOrgEvent.Mounted);
 window.dispatchEvent(event);
